@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://192.168.43.48:8080/";
+const baseUrl = "http://192.168.1.9:8080/";
 
 function getMethodRequest(url, callBackFunction) {
   console.log("came inside getMethodRequest");

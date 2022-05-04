@@ -70,24 +70,20 @@ class CategoryScreen extends Component {
               right: 30,
             }}
           >
-            {categoryListData.map((category) =>
-              category.active ? (
-                <TouchableOpacity
-                  key={category.id}
-                  onPress={() =>
-                    navigation.navigate("SpotsForCategory", {
-                      headerTitle: category.name,
-                      bannerImageUrl: category.iconUrl,
-                      categoryId: category.id,
-                    })
-                  }
-                >
-                  <ImageCardComponent category={category} />
-                </TouchableOpacity>
-              ) : (
-                <></>
-              )
-            )}
+            {categoryListData.map((category) => (
+              <TouchableOpacity
+                key={category.id}
+                onPress={() =>
+                  navigation.navigate("SpotsForCategory", {
+                    headerTitle: category.name,
+                    bannerImageUrl: category.iconUrl,
+                    categoryId: category.id,
+                  })
+                }
+              >
+                <ImageCardComponent category={category} />
+              </TouchableOpacity>
+            ))}
           </ScrollView>
         ) : (
           <CategoryLoaderComponent />

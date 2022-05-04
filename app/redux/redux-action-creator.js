@@ -5,4 +5,11 @@ const setBookMarkPlace = (placeDetailsJson) => {
   };
 };
 
-export { setBookMarkPlace };
+const setPlacesForCategory = (categoryPlaceDetails) => {
+  return {
+    type: "addPlaceForCategory",
+    value: categoryPlaceDetails,
+  };
+};
+
+export { setBookMarkPlace, setPlacesForCategory };

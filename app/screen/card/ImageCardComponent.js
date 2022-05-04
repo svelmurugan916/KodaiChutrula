@@ -8,7 +8,7 @@ class ImageCardComponent extends React.Component {
 
   render() {
     const { category } = this.props;
-    const { name, iconUrl, placeList } = category;
+    const { name, iconUrl, placeCount } = category;
     return (
       <View
         style={{
@@ -46,7 +46,7 @@ class ImageCardComponent extends React.Component {
           >
             <Text style={{ color: "#fff", fontSize: 16 }}>{name}</Text>
             <Text style={{ color: "#fff", fontSize: 10 }}>
-              {placeList.length} Place(s)
+              {placeCount} Place(s)
             </Text>
           </View>
         </View>

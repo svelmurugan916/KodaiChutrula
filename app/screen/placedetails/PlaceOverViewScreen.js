@@ -30,13 +30,15 @@ class PlaceOverViewScreen extends Component {
 
   render = () => {
     console.log("bookmarkedData -- ", this.props.bookMarkedPlaceIdList);
-    const { navigation } = this.props;
+    const { navigation, placeDetails } = this.props;
+    const { id, name, description, placeBannerImageUrl } = placeDetails;
+    console.log("id -- ", placeDetails.id);
+    console.log("placeDetails -- ", placeDetails);
     const placeDetailsJson = {
-      id: 12,
-      name: "Mannavanur Lake",
-      description: "This is the best lake in Kodaikanal",
-      imageUrl:
-        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0a/a7/9f/46/the-misty-lake.jpg?w=1200&h=-1&s=1",
+      id: id,
+      name: name,
+      description: description,
+      imageUrl: placeBannerImageUrl,
     };
     return (
       <View style={{ backgroundColor: "#fff", height: "100%" }}>

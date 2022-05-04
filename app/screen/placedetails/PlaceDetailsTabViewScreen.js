@@ -22,7 +22,8 @@ class PlaceDetailsTabViewScreen extends React.Component {
   }
 
   TabStack = () => {
-    const { navigation } = this.props;
+    const { navigation, placeDetails } = this.props;
+    console.log("PlaceDetailsTabViewScreen props - ", this.props);
     return (
       <Tab.Navigator
         initialRouteName="Feed"
@@ -44,7 +45,12 @@ class PlaceDetailsTabViewScreen extends React.Component {
       >
         <Tab.Screen
           name="FirstPage"
-          children={() => <PlaceOverViewScreen navigation={navigation} />}
+          children={() => (
+            <PlaceOverViewScreen
+              navigation={navigation}
+              placeDetails={placeDetails}
+            />
+          )}
           options={{
             tabBarLabel: "OVERVIEW",
             title: "Overview",

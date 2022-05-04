@@ -69,7 +69,10 @@ class PlaceDetailsScreen extends Component {
             reviewContent={reviewContent}
           />
           <View>
-            <PlaceDetailsTabViewScreen navigation={navigation} />
+            <PlaceDetailsTabViewScreen
+              navigation={navigation}
+              placeDetails={placeDetails}
+            />
           </View>
         </View>
       </ScrollView>

@@ -11,6 +11,24 @@ const reducer = (state = initialStatue, action) => {
           action.value.id,
         ],
       };
+    case "addPlaceForCategory":
+      let categoryPlaceDetails = state.categoryPlaceDetails;
+      let placeDetails = state.categoryPlaceDetails[action.value.categoryId];
+      if (placeDetails === undefined) {
+        placeDetails = [];
+      }
+      categoryPlaceDetails[action.value.categoryId] = [
+        ...placeDetails,
+        ...action.value.placeList,
+      ];
+      console.log(
+        "categoryPlaceDetails -- ",
+        Object.keys(categoryPlaceDetails)
+      );
+      return {
+        ...state,
+        categoryPlaceDetails: categoryPlaceDetails,
+      };
     default:
       return state;
   }

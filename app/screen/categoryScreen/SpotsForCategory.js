@@ -30,7 +30,7 @@ class SpotsForCategory extends Component {
           if (response !== undefined) {
             const { data } = response;
             this.setState({
-              categoryData: data,
+              categoryData: data.spotCategoryMap,
               isLoaded: true,
             });
           }

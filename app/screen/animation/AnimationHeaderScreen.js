@@ -6,6 +6,23 @@ import TopNavigation from "./TopNavigation";
 const AnimationHeaderScreen = (props) => {
   const scrollA = useRef(new Animated.Value(0)).current;
   const { children, bannerImageUrl, headerTitle, navigation } = props;
+
+  const isCloseToBottom = ({
+    layoutMeasurement,
+    contentOffset,
+    contentSize,
+  }) => {
+    const paddingToBottom = 20;
+    return (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    );
+  };
+
+  const enableSomeButton = () => {
+    console.log("Reached.....");
+  };
+
   return (
     <View>
       <TopNavigation
@@ -18,6 +35,11 @@ const AnimationHeaderScreen = (props) => {
           [{ nativeEvent: { contentOffset: { y: scrollA } } }],
           { useNativeDriver: true }
         )}
+        // onScroll={({ nativeEvent }) => {
+        //   if (isCloseToBottom(nativeEvent)) {
+        //     enableSomeButton();
+        //   }
+        // }}
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={16}
       >
