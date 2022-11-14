@@ -39,7 +39,7 @@ class PlaceInfoScreen extends Component {
         </View>
         <View style={{ marginTop: 3, flexDirection: "row" }}>
           <Text style={styles.pageInfoSubTextDesign}>{placeAddressInfo}</Text>
-          {isOpened !== undefined ? (
+          {isOpened !== undefined && (
             <>
               <Text> - </Text>
               {isOpened ? (
@@ -50,8 +50,6 @@ class PlaceInfoScreen extends Component {
                 </Text>
               )}
             </>
-          ) : (
-            <></>
           )}
         </View>
       </View>

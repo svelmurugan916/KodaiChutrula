@@ -52,9 +52,10 @@ class ShowSpotListScreen extends Component {
         (response) => {
           if (response !== undefined) {
             const { data } = response;
-            this.setState({
-              placeCount: data.placeCount,
-            });
+            this._isMounted &&
+              this.setState({
+                placeCount: data.placeCount,
+              });
           }
         },
         `spotCategory/getPlaceCount/${categoryId}`
@@ -65,9 +66,10 @@ class ShowSpotListScreen extends Component {
   clickLoadMorePlaceButton = () => {
     const { categoryData } = this.props;
     this.offset += 5;
-    this.setState({
-      isLoadingMoreEnable: true,
-    });
+    this._isMounted &&
+      this.setState({
+        isLoadingMoreEnable: true,
+      });
     this.getCategoryDetails(categoryData.id);
   };
 
@@ -83,12 +85,14 @@ class ShowSpotListScreen extends Component {
             if (placeList !== undefined && data.placeList.length === 5) {
               isShowLoadMoreButton = true;
             }
-            this.setState({
-              placeList: [...this.state.placeList, ...placeList],
-              isLoaded: true,
-              isShowLoadMoreButton: isShowLoadMoreButton,
-              isLoadingMoreEnable: false,
-            });
+            console.log("placeList -- ", placeList);
+            this._isMounted &&
+              this.setState({
+                placeList: [...this.state.placeList, ...placeList],
+                isLoaded: true,
+                isShowLoadMoreButton: isShowLoadMoreButton,
+                isLoadingMoreEnable: false,
+              });
             // this.props.setPlacesForCategory({
             //   categoryId: categoryId,
             //   placeList: this.state.placeList,
@@ -114,7 +118,7 @@ class ShowSpotListScreen extends Component {
     const { navigation, title } = this.props;
     return (
       <View>
-        {isLoaded ? (
+        {isLoaded && (
           <View>
             <View>
               <CategoryInfoScreen
@@ -144,7 +148,7 @@ class ShowSpotListScreen extends Component {
                 navigation={navigation}
               />
             ))}
-            {isShowLoadMoreButton ? (
+            {isShowLoadMoreButton && (
               <View style={styles.loadBtnView}>
                 {isLoadingMoreEnable ? (
                   <Button title="Loading..." disabled />
@@ -155,12 +159,8 @@ class ShowSpotListScreen extends Component {
                   />
                 )}
               </View>
-            ) : (
-              <></>
             )}
           </View>
-        ) : (
-          <></>
         )}
       </View>
     );

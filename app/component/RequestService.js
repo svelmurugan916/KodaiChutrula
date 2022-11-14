@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://192.168.1.9:8080/";
+const baseUrl = "http://192.168.0.104:8080/";
 
 function getMethodRequest(url, callBackFunction) {
   console.log("came inside getMethodRequest");
@@ -21,10 +21,17 @@ function getMethodRequest(url, callBackFunction) {
 }
 
 function postMethodRequest(url, data, callBackFunction) {
-  axios.post(`${baseUrl}${url}`, { data }).then((res) => {
-    callBackFunction();
-    return res;
-  });
+  axios
+    .post(`${baseUrl}${url}`, data)
+    .then((response) => {
+      if (callBackFunction !== undefined) {
+        callBackFunction(response);
+      }
+      return response;
+    })
+    .catch((err) => {
+      console.log("err -- ", err);
+    });
 }
 
 export function getResponse(methodType, callBackFunction, url, dataJson) {

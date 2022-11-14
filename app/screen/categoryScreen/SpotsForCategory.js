@@ -13,6 +13,7 @@ class SpotsForCategory extends Component {
   }
 
   componentDidMount = () => {
+    this._isMounted = true;
     const {
       route: { params },
       navigation,
@@ -22,6 +23,10 @@ class SpotsForCategory extends Component {
     this.getCategoryDetails(categoryId);
   };
 
+  componentWillUnmount = () => {
+    this._isMounted = false;
+  };
+
   getCategoryDetails = (categoryId) => {
     if (categoryId !== undefined) {
       getResponse(
@@ -29,10 +34,11 @@ class SpotsForCategory extends Component {
         (response) => {
           if (response !== undefined) {
             const { data } = response;
-            this.setState({
-              categoryData: data.spotCategoryMap,
-              isLoaded: true,
-            });
+            this._isMounted &&
+              this.setState({
+                categoryData: data.spotCategoryMap,
+                isLoaded: true,
+              });
           }
         },
         `spotCategory/get/${categoryId}`
@@ -46,22 +52,24 @@ class SpotsForCategory extends Component {
       navigation,
     } = this.props;
     const { categoryData, isLoaded } = this.state;
-    const { bannerImageUrl, headerTitle } = params;
-    return isLoaded ? (
-      <AnimationHeaderScreen
-        key={key}
-        bannerImageUrl={bannerImageUrl}
-        navigation={navigation}
-        headerTitle={headerTitle}
-      >
-        <ShowSpotListScreen
+    const { bannerImageUrl, headerTitle, categoryId, bannerTitle } = params;
+    console.log("bannerTitlebannerTitle -- ", bannerTitle);
+    return (
+      isLoaded && (
+        <AnimationHeaderScreen
+          key={key}
+          bannerImageUrl={bannerImageUrl}
           navigation={navigation}
-          title={headerTitle}
-          categoryData={categoryData}
-        />
-      </AnimationHeaderScreen>
-    ) : (
-      <></>
+          headerTitle={headerTitle}
+          bannerTitle={bannerTitle}
+        >
+          <ShowSpotListScreen
+            navigation={navigation}
+            title={headerTitle}
+            categoryData={categoryData}
+          />
+        </AnimationHeaderScreen>
+      )
     );
   };
 }

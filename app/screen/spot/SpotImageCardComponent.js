@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import { Rating } from "react-native-ratings";
+import CachedImageComponent from "../card/CachedImageComponent";
 
 class SpotImageCardComponent extends React.Component {
   constructor(props) {
@@ -29,13 +30,13 @@ class SpotImageCardComponent extends React.Component {
             borderRadius: 10,
             overflow: "hidden",
             borderWidth: 1,
-            borderColor: "#dadce0",
+            borderColor: "#efefef",
           }}
         >
           <View style={{ width: 232, overflow: "hidden" }}>
             <View style={{ width: "100%", aspectRatio: 16 / 9 }}>
-              <Image
-                source={{ uri: imageUrl }}
+              <CachedImageComponent
+                uri={imageUrl}
                 style={{
                   width: "100%",
                   height: "100%",

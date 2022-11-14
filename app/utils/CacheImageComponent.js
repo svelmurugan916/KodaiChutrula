@@ -11,7 +11,12 @@ class CacheImageComponent extends Component {
     };
   }
 
+  componentWillUnmount = () => {
+    this._isMounted = false;
+  };
+
   componentDidMount = async () => {
+    this._isMounted = true;
     const { uri } = this.props;
     const name = shorthash.unique(uri);
     console.log("name: ", name);
@@ -19,16 +24,18 @@ class CacheImageComponent extends Component {
     const image = await FileSystem.getInfoAsync(path);
     if (image.exists) {
       console.log("read image from cache.");
-      this.setState({
-        imgSource: image.uri,
-      });
+      this._isMounted &&
+        this.setState({
+          imgSource: image.uri,
+        });
       return;
     }
     console.log("download image and show");
     const newImage = await FileSystem.downloadAsync(uri, path);
-    this.setState({
-      uri: newImage.uri,
-    });
+    this._isMounted &&
+      this.setState({
+        uri: newImage.uri,
+      });
   };
 
   render = () => {

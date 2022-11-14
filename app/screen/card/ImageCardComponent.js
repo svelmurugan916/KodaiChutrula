@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Text, View, Image } from "react-native";
+import CachedImageComponent from "./CachedImageComponent";
 
 class ImageCardComponent extends React.Component {
   constructor(props) {
@@ -26,8 +27,8 @@ class ImageCardComponent extends React.Component {
           }}
         >
           <View style={{ height: 250, width: 155, overflow: "hidden" }}>
-            <Image
-              source={{ uri: iconUrl }}
+            <CachedImageComponent
+              uri={iconUrl}
               style={{
                 width: 155,
                 height: "100%",
@@ -44,8 +45,22 @@ class ImageCardComponent extends React.Component {
               backgroundColor: "rgba(52, 52, 52, 0.5)",
             }}
           >
-            <Text style={{ color: "#fff", fontSize: 16 }}>{name}</Text>
-            <Text style={{ color: "#fff", fontSize: 10 }}>
+            <Text
+              style={{
+                color: "#fff",
+                fontSize: 14,
+                fontFamily: "Poppins-Regular",
+              }}
+            >
+              {name}
+            </Text>
+            <Text
+              style={{
+                color: "#fff",
+                fontSize: 9,
+                fontFamily: "Poppins-Light",
+              }}
+            >
               {placeCount} Place(s)
             </Text>
           </View>

@@ -12,4 +12,11 @@ const setPlacesForCategory = (categoryPlaceDetails) => {
   };
 };
 
-export { setBookMarkPlace, setPlacesForCategory };
+const setImagesForPlace = (placeImageDataJson) => {
+  return {
+    type: "addImagesForPlace",
+    value: placeImageDataJson,
+  };
+};
+
+export { setBookMarkPlace, setPlacesForCategory, setImagesForPlace };

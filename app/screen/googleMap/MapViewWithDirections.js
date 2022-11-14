@@ -33,10 +33,19 @@ class MapViewWithDirections extends Component {
     this.mapView = null;
   }
 
+  componentWillUnmount = () => {
+    this._isMounted = false;
+  };
+
+  componentDidMount = () => {
+    this._isMounted = true;
+  };
+
   onMapPress = (e) => {
-    this.setState({
-      coordinates: [...this.state.coordinates, e.nativeEvent.coordinate],
-    });
+    this._isMounted &&
+      this.setState({
+        coordinates: [...this.state.coordinates, e.nativeEvent.coordinate],
+      });
   };
 
   render() {

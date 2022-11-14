@@ -17,9 +17,10 @@ class SpotScreen extends Component {
       (response) => {
         if (response !== undefined) {
           const { data } = response;
-          this.setState({
-            spots: data,
-          });
+          this._isMounted &&
+            this.setState({
+              spots: data,
+            });
         }
       },
       "spot/list"
@@ -29,6 +30,10 @@ class SpotScreen extends Component {
   componentDidMount = () => {
     this._isMounted = true;
     this.fetchAllSpots();
+  };
+
+  componentWillUnmount = () => {
+    this._isMounted = false;
   };
 
   render = () => {

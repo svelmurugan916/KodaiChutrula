@@ -22,7 +22,12 @@ class GoogleMapComponent extends Component {
     };
   }
 
+  componentWillUnmount = () => {
+    this._isMounted = false;
+  };
+
   componentDidMount = () => {
+    this._isMounted = true;
     (async () => {
       if (Platform.OS === "android" && !Constants.isDevice) {
         setErrorMsg(
@@ -60,7 +65,7 @@ class GoogleMapComponent extends Component {
   };
 
   onRegionChange = (region) => {
-    this.setState({ region });
+    this._isMounted && this.setState({ region });
   };
 
   onMapClick = (event) => {
@@ -71,9 +76,10 @@ class GoogleMapComponent extends Component {
       title: "dummy",
       description: "dummy desc",
     };
-    this.setState({
-      markers: [...markers, marker],
-    });
+    this._isMounted &&
+      this.setState({
+        markers: [...markers, marker],
+      });
     console.log("coordinate -- ", event.nativeEvent.coordinate);
   };
 

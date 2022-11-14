@@ -5,6 +5,8 @@ import HomeScreen from "../screen/home/HomeScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import SpotsForCategory from "../screen/categoryScreen/SpotsForCategory";
 import AnimatedMapViewScreen from "../screen/googleMap/AnimatedMapViewScreen";
+import SearchScreenComponent from "../screen/search/SearchScreenComponent";
+import ShowTourPlanDetailsComponent from "../screen/trip-plan/ShowTourPlanDetailsComponent";
 
 const Stack = createStackNavigator();
 
@@ -43,6 +45,16 @@ class NavigationApp extends Component {
           <Stack.Screen
             name="SpotsForCategory"
             component={SpotsForCategory}
+            options={{
+              transitionSpec: {
+                open: config,
+                close: config,
+              },
+            }}
+          />
+          <Stack.Screen
+            name="ShowTourPlanDetailsComponent"
+            component={ShowTourPlanDetailsComponent}
             options={{
               transitionSpec: {
                 open: config,

@@ -3,7 +3,7 @@
 import "react-native-gesture-handler";
 
 import * as React from "react";
-import { View, Dimensions } from "react-native";
+import { View, Dimensions, useWindowDimensions } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -12,6 +12,8 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import PlaceOverViewScreen from "./PlaceOverViewScreen";
 import PlaceReviewScreen from "./PlaceReviewScreen";
 import PlaceAboutScreen from "./PlaceAboutScreen";
+import { primaryColor } from "../../constants";
+import PlaceImageGalleryScreen from "./PlaceImageGalleryScreen";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -23,6 +25,7 @@ class PlaceDetailsTabViewScreen extends React.Component {
 
   TabStack = () => {
     const { navigation, placeDetails } = this.props;
+    const { width } = useWindowDimensions();
     console.log("PlaceDetailsTabViewScreen props - ", this.props);
     return (
       <Tab.Navigator
@@ -30,16 +33,21 @@ class PlaceDetailsTabViewScreen extends React.Component {
         screenOptions={{
           activeTintColor: "#FFFFFF",
           inactiveTintColor: "#F8F8F8",
-          tabBarScrollEnabled: true,
-          style: {
-            backgroundColor: "#633689",
+          tabBarScrollEnabled: false,
+          tabBarActiveTintColor: primaryColor,
+          tabBarInactiveTintColor: "#AAAAAA",
+          tabBarLabelStyle: {
+            fontSize: 14,
+            fontFamily: "Poppins-Medium",
+            textTransform: "none",
           },
-          labelStyle: {
-            textAlign: "center",
+          tabBarStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
           },
-          indicatorStyle: {
-            borderBottomColor: "#87B56A",
-            borderBottomWidth: 2,
+          tabBarIndicatorStyle: {
+            borderBottomWidth: 0,
+            backgroundColor: "#fff",
           },
         }}
       >
@@ -52,7 +60,7 @@ class PlaceDetailsTabViewScreen extends React.Component {
             />
           )}
           options={{
-            tabBarLabel: "OVERVIEW",
+            tabBarLabel: "Overview",
             title: "Overview",
             //   tabBarIcon: ({ color, size }) => (
             //     <MaterialCommunityIcons name="home" color={color} size={size} />
@@ -63,21 +71,14 @@ class PlaceDetailsTabViewScreen extends React.Component {
           name="ReviewPage"
           component={PlaceReviewScreen}
           options={{
-            tabBarLabel: "REVIEWS",
+            tabBarLabel: "Reviews",
           }}
         />
         <Tab.Screen
           name="PhotosPage"
-          component={PlaceReviewScreen}
+          component={PlaceImageGalleryScreen}
           options={{
-            tabBarLabel: "PHOTOS",
-          }}
-        />
-        <Tab.Screen
-          name="AboutPage"
-          component={PlaceAboutScreen}
-          options={{
-            tabBarLabel: "About",
+            tabBarLabel: "Photos",
           }}
         />
       </Tab.Navigator>
@@ -85,10 +86,11 @@ class PlaceDetailsTabViewScreen extends React.Component {
   };
 
   render = () => {
+    console.log("window height: ", Dimensions.get("window").height);
     return (
       <View
         style={{
-          height: Dimensions.get("window").height,
+          height: Dimensions.get("window").height - 70,
           flex: 2,
           backgroundColor: "#fff",
         }}

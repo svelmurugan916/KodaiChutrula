@@ -2,6 +2,7 @@ import * as React from "react";
 import { Text, View, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Rating } from "react-native-ratings";
 import { Entypo } from "@expo/vector-icons";
+import CachedImageComponent from "../card/CachedImageComponent";
 
 class DetailedPlaceListScreen extends React.Component {
   constructor(props) {
@@ -10,7 +11,14 @@ class DetailedPlaceListScreen extends React.Component {
 
   render() {
     const { placeDetails, navigation } = this.props;
-    const { id, name, placeBannerImageUrl, rating, ratingCount } = placeDetails;
+    const {
+      id,
+      name,
+      placeBannerImageUrl,
+      rating,
+      ratingCount,
+      placeOpeningStatus,
+    } = placeDetails;
     return (
       <TouchableOpacity
         style={{
@@ -40,29 +48,42 @@ class DetailedPlaceListScreen extends React.Component {
         >
           <View style={{ width: "100%", overflow: "hidden" }}>
             <View style={{ width: "100%", aspectRatio: 16 / 9 }}>
-              <Image
-                source={{ uri: placeBannerImageUrl }}
+              <CachedImageComponent
+                uri={placeBannerImageUrl}
                 style={{
                   width: "100%",
                   height: "100%",
                 }}
               />
-              <View
-                style={{
-                  position: "absolute",
-                  bottom: 12,
-                  backgroundColor: "#1a73e88f",
-                  borderRadius: 10,
-                  paddingVertical: 5,
-                  paddingHorizontal: 10,
-                  left: 10,
-                }}
-              >
-                <Text style={{ color: "#fff", fontSize: 8 }}>Daily opens</Text>
-                <Text style={{ color: "#fff", fontWeight: "bold" }}>
-                  09:00 - 18:00
-                </Text>
-              </View>
+              {placeOpeningStatus !== undefined && (
+                <View
+                  style={{
+                    position: "absolute",
+                    bottom: 12,
+                    backgroundColor: placeOpeningStatus.isOpened
+                      ? placeOpeningStatus.message === "Closing soon"
+                        ? "#e8701a8f"
+                        : "#1a73e88f"
+                      : "#e81a1a8f",
+                    borderRadius: 10,
+                    paddingVertical: 5,
+                    paddingHorizontal: 10,
+                    left: 10,
+                  }}
+                >
+                  <Text style={{ color: "#fff", fontSize: 8 }}>
+                    {placeOpeningStatus.message}
+                    {/* Daily opens */}
+                  </Text>
+                  {placeOpeningStatus.openTime !== undefined && (
+                    <Text style={{ color: "#fff", fontWeight: "bold" }}>
+                      {placeOpeningStatus.openTime} -{" "}
+                      {placeOpeningStatus.closingTime}
+                      {/* 09:00 - 18:00 */}
+                    </Text>
+                  )}
+                </View>
+              )}
             </View>
             <View
               style={{

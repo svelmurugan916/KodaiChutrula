@@ -11,20 +11,13 @@ import {
 } from "react-native";
 
 import MapView from "react-native-maps";
+import CachedImageComponent from "../card/CachedImageComponent";
 
 const Images = [
-  {
-    uri: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/02/74/36/photo3jpg.jpg?w=1200&h=-1&s=1",
-  },
-  {
-    uri: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/cd/f0/2f/20180117-162819-largejpg.jpg?w=1200&h=-1&s=1",
-  },
-  {
-    uri: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/9d/63/3a/berijam-lake.jpg?w=1100&h=-1&s=1",
-  },
-  {
-    uri: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0a/a7/9f/46/the-misty-lake.jpg?w=1200&h=-1&s=1",
-  },
+  "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/02/74/36/photo3jpg.jpg?w=1200&h=-1&s=1",
+  "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/cd/f0/2f/20180117-162819-largejpg.jpg?w=1200&h=-1&s=1",
+  "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/9d/63/3a/berijam-lake.jpg?w=1100&h=-1&s=1",
+  "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0a/a7/9f/46/the-misty-lake.jpg?w=1200&h=-1&s=1",
 ];
 
 const { width, height } = Dimensions.get("window");
@@ -199,10 +192,9 @@ class AnimatedMapViewScreen extends Component {
         >
           {this.state.markers.map((marker, index) => (
             <View style={styles.card} key={index}>
-              <Image
-                source={marker.image}
+              <CachedImageComponent
+                uri={marker.image}
                 style={styles.cardImage}
-                resizeMode="cover"
               />
               <View style={styles.textContent}>
                 <Text numberOfLines={1} style={styles.cardtitle}>

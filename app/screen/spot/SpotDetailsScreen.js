@@ -20,9 +20,10 @@ class SpotDetailsScreen extends Component {
       (response) => {
         if (response !== undefined) {
           const { data } = response;
-          this.setState({
-            spotPlaces: data,
-          });
+          this._isMounted &&
+            this.setState({
+              spotPlaces: data,
+            });
         }
       },
       `spot/getAllPlacesForSpots/${id}`
@@ -35,6 +36,10 @@ class SpotDetailsScreen extends Component {
     setTimeout(() => {
       this.scrollView.scrollTo({ x: -30 });
     }, 1); // scroll view position fix
+  };
+
+  componentWillUnmount = () => {
+    this._isMounted = false;
   };
 
   setCategoryData = () => {
@@ -72,7 +77,7 @@ class SpotDetailsScreen extends Component {
         ratingCount: 4937,
       },
     ];
-    this.setState({ spotPlaces });
+    this._isMounted && this.setState({ spotPlaces });
   };
 
   render = () => {

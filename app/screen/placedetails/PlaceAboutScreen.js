@@ -1,32 +1,18 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
+import { MoreOrLess } from "@rntext/more-or-less";
+import { useWindowDimensions } from "react-native";
+import RenderHtml from "react-native-render-html";
 
 class PlaceAboutScreen extends Component {
   render = () => {
+    const source = {
+      html: `
+    <div class="long-description"><span><img loading="lazy" src="https://edge.ixigo.com/ixi-api/img/52301a52e4b022c0dcf71f07_600x315.jpg" alt=""><br><br>There are several activities that you can enjoy while you are visiting Kodaikanal Lake some of them are:<br></span><b><br>1. Boating: </b><span>You should enjoy boating at the lake as there are several options available to choose.There are normal boats as well as luxury boats and you can go for any one of your choice or budget.<br></span><b><br>2. Flower show:</b><span> It is one of the best parts of this lake. You are taken within the lake and can ponder upon beautiful flowers of the lake. During summer, the flowers are organised chiefly along with interesting beauty peasant show.<br></span><b><br>3. Fishing:</b><span> It is another activity that can be tried and enjoyed at the lake. The lake is home to many local fish<br></span><b><br>4. Activities: </b><span>The roads around the lake also have the activities of horse riding and cycling which you can enjoy.<br></span><b><br>5. Swimming:</b><span> There are boat clubs formed which after certain enrollment or membership allows you to swim in Kodai lake.<br></span><br><h3>Attractions Near Kodaikanal Lake</h3><span><img src="https://live.staticflickr.com/8088/29560245225_dfdb40bddd_o.jpg" alt=""><br><br>There are several other attractions near the Kodaikanal Lake which you worth you visit they are:</span><p><b>1. Berijam Lake:</b> It is a reservoir with excellent water quality.It is situated at the old site of “ Fort Hamilton” in the upper part of Palani hills. It is a refreshing and scenic eye treat for nature.<br><span><br><b>2. Kodaikanal Solar Observatory:</b> Established in 1899 as Solar Physics Observatory. It has a 20cm refractor which is occasionally used for cometary and occultation observations. The Observatory has a famous astronomy museum on campus for the visitors.This place is perfect for the people who are science lovers.<br></span><span><br><b>3. Kumbakkarai Falls:</b> A beautiful fall in Kodaikanal which will refresh you thoroughly. The water originates from the Kodaikanal hills and flows along the rock and then reach the foothill. It is a good place to enjoy with your family or friends. People also see it as an amazing picnic spot.</span><br></p></div>`,
+    };
     return (
       <View style={{ padding: 15, backgroundColor: "#fff", height: "100%" }}>
-        <Text style={{ fontSize: 15, lineHeight: 25 }}>
-          One of the many elements that add to the serenity of Kodaikanal is the
-          infamous Bryant Park. Situated on the eastern side of the Kodai Lake,
-          the park is bejewelled with various species of plants and shrubs. They
-          vary in a range of flowering plants, hybrids and grafts. Once you've
-          had a stroll on the Coakers walk, the pathway will lead you towards
-          the park. It is a popular spot amongst families as they can set up a
-          picnic area in the park and watch their kids run around and tumble in
-          the grass. The park also educates and trains students of Ornamental
-          Horticulture as it is also recognised as a demonstration centre.
-          {"\n"}
-          {"\n"}
-          Bryant Park is a popular attraction amongst tourists and locals alike.
-          One section of the park is dedicated to an exotic rose garden that
-          prides itself on the unique and rare species grown there. There is
-          also a greenhouse where plants from all around the world thrive. The
-          park also hosts an Annual Horticulture Show that draws gardening
-          enthusiasts and horticulturalists. In the 2017 edition of the show,
-          green roses were the main attraction that drew people from all over
-          the country. Kodaikanal is deemed as one of the most serene places in
-          India and Bryant Park hugely contributes to that title.
-        </Text>
+        <RenderHtml contentWidth={300} source={source} />
       </View>
     );
   };

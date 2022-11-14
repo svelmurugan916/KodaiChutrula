@@ -3,6 +3,7 @@ const initialStatue = {
   bookMarkedPlaceIdList: [],
   categoryDetails: {},
   categoryPlaceDetails: {},
+  placeImageDataJson: {},
 };
 
 export default initialStatue;

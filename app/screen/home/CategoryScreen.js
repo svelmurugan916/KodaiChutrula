@@ -28,9 +28,10 @@ class CategoryScreen extends Component {
       (response) => {
         if (response !== undefined) {
           const { data } = response;
-          this.setState({
-            categoryListData: data,
-          });
+          this._isMounted &&
+            this.setState({
+              categoryListData: data,
+            });
           if (data.length !== 0) {
             setTimeout(() => {
               this.scrollView.scrollTo({ x: -30 });
@@ -42,7 +43,12 @@ class CategoryScreen extends Component {
     );
   };
 
+  componentWillUnmount = () => {
+    this._isMounted = false;
+  };
+
   componentDidMount = () => {
+    this._isMounted = true;
     this.fetchAllCategory();
   };
 
@@ -51,8 +57,16 @@ class CategoryScreen extends Component {
     const { navigation } = this.props;
     return (
       <View style={{ marginTop: 20 }}>
-        <Text style={{ fontWeight: "bold", fontSize: 16, marginBottom: 10 }}>
-          Select Categories
+        <Text
+          style={{
+            fontSize: 18,
+            // fontWeight: "bold",
+            marginBottom: 10,
+            fontFamily: "Poppins-SemiBold",
+            color: "#3E3E3E",
+          }}
+        >
+          Categories
         </Text>
         {categoryListData.length !== 0 ? (
           <ScrollView
@@ -78,6 +92,13 @@ class CategoryScreen extends Component {
                     headerTitle: category.name,
                     bannerImageUrl: category.iconUrl,
                     categoryId: category.id,
+                    bannerTitle: {
+                      bannerMainTitle: category.name,
+                      bannerSubTitle: {
+                        main: category.placeCount,
+                        sub: "Place(s)",
+                      },
+                    },
                   })
                 }
               >
